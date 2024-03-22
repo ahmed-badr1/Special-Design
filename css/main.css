@@ -1,6 +1,6 @@
 /* Start Variables */
 :root {
-  --main-color: #FF9800;
+  --main-color: #607d8b;
   --secondary-color: #666;
   --section-color: 238, 238, 238;
   --section-padding: 50px;
@@ -308,7 +308,7 @@ header .links li:hover a {
 main section.landing {
   position: relative;
   min-height: 100vh;
-  background-image: url("../imgs/01.jpg");
+  background-image: url("/imgs/01.jpg");
   background-size: cover;
   background-position: 65%;
 }
@@ -563,6 +563,7 @@ section.landing .intro p {
   position: relative;
   display: block;
   background-color: var(--main-color);
+  text-align: center;
   color: white;
   padding: 4px 10px;
   margin: 20px auto;

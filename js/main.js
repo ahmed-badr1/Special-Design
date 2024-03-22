@@ -103,13 +103,13 @@ ResetBtn.onclick = () => {
 
 // Change Landing Page
 const landingPage = document.querySelector(".landing");
-const imagePath = "../imgs/0";
+
 
 function randomizeImgs() {
   if (randomImg) {
     backgroundSetInterval = setInterval(() => {
       let randomNum = Math.ceil(Math.random() * 5);
-      landingPage.style.backgroundImage = `url(${imagePath}${randomNum}.jpg)`;
+      landingPage.style.backgroundImage = `url(imgs/0${randomNum}.jpg)`;
     }, 6000);
   }
 }
@@ -195,11 +195,9 @@ showMore.addEventListener("click", (e) => {
     if (!e.target.classList.contains("active")) {
       item.style.display = "inline-block";
       e.target.innerHTML = "Show Less";
-      // document.querySelector("#gallery .container").style.height = document.querySelector("#gallery .container").offsetHeight;
     } else {
       item.style.display = "none";
       e.target.innerHTML = "Show More";
-      // document.querySelector("#gallery .container").style.height = document.querySelector("#gallery .container").offsetHeight;
     }
   });
 

@@ -308,7 +308,7 @@ header .links li:hover a {
 main section.landing {
   position: relative;
   min-height: 100vh;
-  background-image: url("/imgs/01.jpg");
+  background-image: url("../imgs/01.jpg");
   background-size: cover;
   background-position: 65%;
 }

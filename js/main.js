@@ -1,15 +1,18 @@
+// Functions
+
+function checkLocalStorage(storedValue, target) {}
+const toggleActiveItem = (allTargets, goal) => {
+  allTargets.forEach((ele) => ele.classList.remove("active"));
+  goal.classList.add("active");
+}
+
 // Check if there's color in local storage
-let mainColor = localStorage.getItem("color_option");
+let mainColor = window.localStorage.getItem("color_option");
 const colorItems = document.querySelectorAll(".colors-list li");
 
 if (mainColor) {
   document.documentElement.style.setProperty("--main-color", mainColor);
-  colorItems.forEach((ele) => ele.classList.remove("active"));
-  document
-    .querySelector(
-      `[data-color="${window.localStorage.getItem("color_option")}"]`
-    )
-    .classList.add("active");
+  toggleActiveItem(colorItems, document.querySelector(`[data-color="${mainColor}"]`))
 }
 
 // Switch and Style Colors List in Setting Box
@@ -17,16 +20,11 @@ colorItems.forEach((item) => {
   item.style.setProperty("background-color", item.dataset.color);
 
   item.addEventListener("click", (event) => {
-    document.documentElement.style.setProperty(
-      "--main-color",
-      event.target.dataset.color
-    );
+    document.documentElement.style.setProperty("--main-color", event.target.dataset.color);
 
     localStorage.setItem("color_option", event.target.dataset.color);
 
-    colorItems.forEach((ele) => ele.classList.remove("active"));
-
-    event.target.classList.add("active");
+    toggleActiveItem(colorItems, event.target);
   });
 });
 
@@ -36,19 +34,20 @@ let randomImg = true;
 let backgroundSetInterval;
 
 // Check if there's option for background in local storage
-let backgroundOption = localStorage.getItem("background_option");
+let backgroundOption = window.localStorage.getItem("background_option");
 
 if (backgroundOption) {
   backgroundOption === "yes" ? (randomImg = true) : (randomImg = false);
 
-  randomBackGroundOptions.forEach((ele) => ele.classList.remove("active"));
-  document.querySelector(`[data-background="${window.localStorage.getItem("background_option")}"]`).classList.add("active");
+  toggleActiveItem(
+    randomBackGroundOptions,
+    document.querySelector(`[data-background="${backgroundOption}"]`)
+  );
 }
 
 randomBackGroundOptions.forEach((item) => {
   item.addEventListener("click", (event) => {
-    randomBackGroundOptions.forEach((ele) => ele.classList.remove("active"));
-    event.target.classList.add("active");
+    toggleActiveItem(randomBackGroundOptions, event.target);
 
     if (event.target.dataset.background === "yes") {
       randomImg = true;
@@ -68,18 +67,18 @@ const bulletsOptions = document.querySelectorAll(".bullets-option button");
 const bullets = document.querySelector("main .bullets");
 
 // Check if there's option for background in local storage
-let localBulletsOption = localStorage.getItem("bullets_option");
+let localBulletsOption = window.localStorage.getItem("bullets_option");
 
 if (localBulletsOption) {
-  bulletsOptions.forEach((ele) => ele.classList.remove("active"));
   bullets.style.display = localBulletsOption;
-  document.querySelector(`[data-display="${window.localStorage.getItem("bullets_option")}"]`).classList.add("active");
+
+  toggleActiveItem(bulletsOptions, document.querySelector(`[data-display="${localBulletsOption}"]`))
 }
 
 bulletsOptions.forEach((item) => {
   item.addEventListener("click", (event) => {
-    bulletsOptions.forEach((ele) => ele.classList.remove("active"));
-    event.target.classList.add("active");
+    toggleActiveItem(bulletsOptions, event.target);
+
     if (item.dataset.display === "block") {
       localStorage.setItem("bullets_option", item.dataset.display);
       bullets.style.display = item.dataset.display;
@@ -91,15 +90,16 @@ bulletsOptions.forEach((item) => {
 });
 
 // Reset ALl Options in Local Storage
-const ResetBtn = document.querySelector(".settings .settings-container .reset-options");
+const ResetBtn = document.querySelector(
+  ".settings .settings-container .reset-options"
+);
 
 ResetBtn.onclick = () => {
   localStorage.removeItem("bullets_option");
   localStorage.removeItem("background_option");
   localStorage.removeItem("color_option");
-  window.location.reload()
-}
-
+  window.location.reload();
+};
 
 // Change Landing Page
 const landingPage = document.querySelector(".landing");
@@ -187,19 +187,16 @@ document.addEventListener("click", (e) => {
 const showMore = document.querySelector("#gallery .more");
 
 showMore.addEventListener("click", (e) => {
-  const galleryImgs = document.querySelectorAll(
-    "#gallery .container img:nth-child(n+4)"
-  );
+  const moreImgs = document.querySelector("#gallery .container .more-imgs");
+  console.log(moreImgs);
 
-  galleryImgs.forEach((item) => {
-    if (!e.target.classList.contains("active")) {
-      item.style.display = "inline-block";
-      e.target.innerHTML = "Show Less";
-    } else {
-      item.style.display = "none";
-      e.target.innerHTML = "Show More";
-    }
-  });
+  if (!moreImgs.classList.contains("non-collapsible")) {
+    moreImgs.classList.add("non-collapsible");
+    showMore.innerHTML = "Show Less";
+  } else {
+    moreImgs.classList.remove("non-collapsible");
+    showMore.innerHTML = "Show More";
+  }
 
   e.target.classList.toggle("active");
 });

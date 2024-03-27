@@ -193,6 +193,10 @@ header .links li:hover a {
   font-size: 20px;
 }
 
+/* .settings .settings-gear i.spin {
+  animation: spinner 1s infinite;
+} */
+
 .settings .settings-container .option-box {
   text-align: center;
   background-color: #cacacaad;
@@ -456,8 +460,15 @@ section.landing .intro p {
   cursor: pointer;
 }
 
-#gallery .container img:nth-child(n+4) {
-  display: none;
+#gallery .container .more-imgs {
+  height: auto;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 1.2s linear;
+}
+
+#gallery .container .more-imgs.non-collapsible {
+  max-height: 2900px;
 }
 
 @media (max-width: 767px) {
